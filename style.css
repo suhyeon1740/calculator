@@ -1,0 +1,33 @@
+table {
+    border-collapse: collapse;
+    border: 1px solid #454448;
+    width: 400px;
+    height: 500px;
+    text-align: center;
+    color: white;
+    font-size: 30px;
+}
+tr:first-child td {            
+    background: #5B5B5D;                 
+}
+input {
+    font-size: 50px;
+    text-align: right;
+    background: none;
+    border: none;
+    color: white;
+    outline: none;
+    width: 80%;
+}
+tr:nth-child(2) {
+    background: #6A6A6C;
+}
+tr {
+    background: #828284;
+}
+.last {
+    background: #F2A23C;
+}
+td {
+    cursor: pointer;
+}
