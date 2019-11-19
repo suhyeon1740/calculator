@@ -1,54 +1,33 @@
-function clickTest(e) {
-    alert(e.innerText)
-}
-var obj = {
-    beforeNumber: '',
-    afterNumber: '',
-    calculate: '',
-    result: '',
+var obj = {        
+    resultClickFlag: false,
     input: document.querySelector('input'),
-    numberClick: (e) => {
-        if (obj.calculate) {
-            obj.afterNumber += e.target.innerText
+    addText: (e) => {
+        if (obj.resultClickFlag) {
+            obj.input.value = ""
+            obj.resultClickFlag = false
         }
-        else {
-            obj.beforeNumber += e.target.innerText
-        }
-        obj.input.value = obj.beforeNumber + obj.calculate + obj.afterNumber
-    },
+        obj.input.value += e.target.innerText
+    },    
     resultClick: () => {
-        switch (obj.calculate) {
-            case '+':
-                obj.result = Number(obj.beforeNumber) + Number(obj.afterNumber)
-                break;
-        }
-        obj.afterNumber = ''
-        obj.beforeNumber = ''
-        obj.calculate = ''
-        document.querySelector('input').value = obj.result
+        console.log(eval(obj.input.value))
+        obj.input.value = eval(obj.input.value)
+        obj.resultClickFlag = true
     },
     acClick: () => {
-        obj.result = ""
-        obj.afterNumber = ""
-        obj.beforeNumber = ""
-        obj.calculate = ""
-        document.querySelector('input').value = obj.result
+        obj.input.value = ""        
     }
 }
-// 숫자를 클릭하면 변수에 저장            
+// 숫자 클릭            
 let numbers = document.getElementsByClassName('number')
 for (let i = 0; i < numbers.length; i++) {
-    numbers[i].addEventListener('click', obj.numberClick)
+    numbers[i].addEventListener('click', obj.addText)
 }
 
-// + 클릭하면 연산 변수에 저장
-// let calculate = document.getElementsByClassName('calculate');
-// for (let i = 0; i < calculate.length; i++) {
-//     calculate[i].addEventListener('click', (e) => {
-//         obj.calculate = e.target.innerText
-//         obj.input.value = obj.beforeNumber + obj.calculate                    
-//     })
-// }
+//+ 클릭하면 연산 변수에 저장
+let calculate = document.getElementsByClassName('calculate');
+for (let i = 0; i < calculate.length; i++) {    
+    calculate[i].addEventListener('click',obj.addText)
+}
 
 //ac 클릭하면 초기화
 let ac = document.getElementById("ac")
