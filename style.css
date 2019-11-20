@@ -29,5 +29,6 @@ tr {
     background: #F2A23C;
 }
 td {
+    border: 1px solid #454448;
     cursor: pointer;
 }
