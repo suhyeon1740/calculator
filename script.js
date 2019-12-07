@@ -1,5 +1,5 @@
 let resultClickFlag = false
-let calculateClickFlag = false
+let calculateClickFlag = true
 const input = document.querySelector('input')
 
 // 버튼 클릭            
@@ -12,7 +12,7 @@ for (let i = 0; i < numbers.length; i++) {
             resultClickFlag = false
         }        
         if (!isNaN(e.target.innerText)) calculateClickFlag = false
-        else {
+        else {            
             // 연산자 중복클릭 X
             if (calculateClickFlag) return;
             calculateClickFlag = true

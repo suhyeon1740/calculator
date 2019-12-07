@@ -19,6 +19,9 @@ input {
     outline: none;
     width: 80%;
 }
+::placeholder {
+    color: white;
+}
 tr:nth-child(2) {
     background: #6A6A6C;
 }
