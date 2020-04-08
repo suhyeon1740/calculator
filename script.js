@@ -1,35 +1,49 @@
-let resultClickFlag = false
-let calculateClickFlag = true
-const input = document.querySelector('input')
+class Calculator {
+    constructor(displayElement) { 
+        this.displayElement = displayElement
+        this.clear()
+    }    
 
-// 버튼 클릭            
-let numbers = document.getElementsByClassName('btn')
-for (let i = 0; i < numbers.length; i++) {
-    numbers[i].addEventListener('click', (e) => {
-        // = 클릭하면 초기화 후  연산
-        if (resultClickFlag) {
-            input.value = ""
-            resultClickFlag = false
-        }        
-        if (!isNaN(e.target.innerText)) calculateClickFlag = false
-        else {            
-            // 연산자 중복클릭 X
-            if (calculateClickFlag) return;
-            calculateClickFlag = true
-        }
-        input.value += e.target.innerText
-    })
+    appendNumber(number) {
+        this.displayContent += number
+    }
+
+    appendOperator(operator) {            
+        this.displayContent += operator
+    }
+
+    updateDisplay() {
+        this.displayElement.value = this.displayContent
+    }
+
+    clear() {
+        this.displayContent = ''
+        this.displayElement.value = 0
+    }
 }
 
-//ac 클릭하면 초기화
-let ac = document.getElementById("ac")
-ac.addEventListener('click', () => {
-    input.value = ""
-})
+const buttons = document.querySelectorAll('button')
+const displayElement = document.querySelector('input')
 
-// = 클릭하면 결과 표출
-document.getElementById('result').addEventListener('click', () => {    
-    if (!input.value || calculateClickFlag) return
-    input.value = eval(input.value)
-    resultClickFlag = true
+const calculator = new Calculator(displayElement)
+
+buttons.forEach(button => {
+    button.addEventListener('click', () => {
+        switch (button.dataset.type) {
+            case 'operator':
+                calculator.appendOperator(button.innerText)
+                calculator.updateDisplay()
+                break
+            case 'ac':
+                calculator.clear()
+                break
+            case 'equals':
+                console.log('equals')
+                break
+            default:
+                calculator.appendNumber(button.innerText)
+                calculator.updateDisplay()
+                break
+        }
+    })      
 })
