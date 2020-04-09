@@ -9,6 +9,20 @@ class Calculator {
     }
 
     appendOperator(operator) {            
+        console.log('&#215;')
+        // switch(operator) {
+        //     case '+':
+        //         operator = '/'
+        //         break
+        //     case '\u00D7':
+        //         operator = '*'
+        //         break
+        //     case '×':
+        //         operator = '*'
+        //         break
+        //     default:
+        //         operator = operator
+        // }
         this.displayContent += operator
     }
 
@@ -19,6 +33,11 @@ class Calculator {
     clear() {
         this.displayContent = ''
         this.displayElement.value = 0
+    }
+
+    compute() {
+        this.displayContent = this.displayContent.replace('\u00D7', '*').replace('\u00F7', '/')
+        this.displayContent = eval(this.displayContent)
     }
 }
 
@@ -38,7 +57,8 @@ buttons.forEach(button => {
                 calculator.clear()
                 break
             case 'equals':
-                console.log('equals')
+                calculator.compute()
+                calculator.updateDisplay()
                 break
             default:
                 calculator.appendNumber(button.innerText)
