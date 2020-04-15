@@ -1,15 +1,25 @@
 class Calculator {
     constructor(displayElement) { 
         this.displayElement = displayElement
+        this.operatorCheck = true
+        this.equalsCheck = false
         this.clear()
     }    
 
     appendNumber(number) {
-        this.displayContent += number
+        if (this.equalsCheck) {
+            this.displayContent = number
+        } else {
+            this.displayContent += number
+        }
+        this.operatorCheck = false
+        this.equalsCheck = false
     }
 
-    appendOperator(operator) {                    
+    appendOperator(operator) {    
+        if (this.operatorCheck) return false
         this.displayContent += operator
+        return this.operatorCheck = true         
     }
 
     updateDisplay() {
@@ -19,13 +29,16 @@ class Calculator {
     clear() {
         this.displayContent = ''
         this.displayElement.value = 0
+        this.operatorCheck = true
     }
 
     compute() {
+        if (this.operatorCheck) return
         this.displayContent = eval(this.displayContent
             .replace('\u00D7', '*')
             .replace('\u00F7', '/')
         )
+        this.equalsCheck = true
     }
 }
 
@@ -38,8 +51,9 @@ buttons.forEach(button => {
     button.addEventListener('click', () => {
         switch (button.dataset.type) {
             case 'operator':
-                calculator.appendOperator(button.innerText)
-                calculator.updateDisplay()
+                if (calculator.appendOperator(button.innerText)) {
+                    calculator.updateDisplay()
+                }                                            
                 break
             case 'ac':
                 calculator.clear()
