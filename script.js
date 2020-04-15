@@ -8,21 +8,7 @@ class Calculator {
         this.displayContent += number
     }
 
-    appendOperator(operator) {            
-        console.log('&#215;')
-        // switch(operator) {
-        //     case '+':
-        //         operator = '/'
-        //         break
-        //     case '\u00D7':
-        //         operator = '*'
-        //         break
-        //     case '×':
-        //         operator = '*'
-        //         break
-        //     default:
-        //         operator = operator
-        // }
+    appendOperator(operator) {                    
         this.displayContent += operator
     }
 
@@ -36,8 +22,10 @@ class Calculator {
     }
 
     compute() {
-        this.displayContent = this.displayContent.replace('\u00D7', '*').replace('\u00F7', '/')
-        this.displayContent = eval(this.displayContent)
+        this.displayContent = eval(this.displayContent
+            .replace('\u00D7', '*')
+            .replace('\u00F7', '/')
+        )
     }
 }
 
