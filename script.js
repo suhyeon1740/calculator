@@ -9,15 +9,16 @@ class Calculator {
     appendNumber(number) {
         if (this.equalsCheck) {
             this.displayContent = number
+            this.equalsCheck = false
         } else {
             this.displayContent += number
         }
         this.operatorCheck = false
-        this.equalsCheck = false
     }
 
     appendOperator(operator) {    
         if (this.operatorCheck) return false
+        if (this.equalsCheck) this.equalsCheck = false
         this.displayContent += operator
         return this.operatorCheck = true         
     }
